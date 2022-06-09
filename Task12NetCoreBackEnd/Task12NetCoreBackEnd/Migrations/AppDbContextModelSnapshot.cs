@@ -22,7 +22,7 @@ namespace Task12NetCoreBackEnd.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Task12NetCoreBackEnd.Models.FinanceTypeModel", b =>
+            modelBuilder.Entity("Task12NetCoreBackEnd.Models.FinanceType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace Task12NetCoreBackEnd.Migrations
                     b.ToTable("FinanceTypes");
                 });
 
-            modelBuilder.Entity("Task12NetCoreBackEnd.Models.MoneyOperationModel", b =>
+            modelBuilder.Entity("Task12NetCoreBackEnd.Models.MoneyOperation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,6 +60,9 @@ namespace Task12NetCoreBackEnd.Migrations
                     b.Property<int>("FinanceTypeId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Money")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FinanceTypeId");
@@ -67,20 +70,15 @@ namespace Task12NetCoreBackEnd.Migrations
                     b.ToTable("MoneyOperations");
                 });
 
-            modelBuilder.Entity("Task12NetCoreBackEnd.Models.MoneyOperationModel", b =>
+            modelBuilder.Entity("Task12NetCoreBackEnd.Models.MoneyOperation", b =>
                 {
-                    b.HasOne("Task12NetCoreBackEnd.Models.FinanceTypeModel", "FinanceType")
-                        .WithMany("MoneyOperations")
+                    b.HasOne("Task12NetCoreBackEnd.Models.FinanceType", "FinanceType")
+                        .WithMany()
                         .HasForeignKey("FinanceTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("FinanceType");
-                });
-
-            modelBuilder.Entity("Task12NetCoreBackEnd.Models.FinanceTypeModel", b =>
-                {
-                    b.Navigation("MoneyOperations");
                 });
 #pragma warning restore 612, 618
         }
